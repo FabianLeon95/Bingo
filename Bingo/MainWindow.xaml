@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bingo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Bingo Allan - Fabis" Height="450" Width="800">
     <Grid>
-        
+        <TextBox x:Name="txtCard" HorizontalAlignment="Left" Height="220" Margin="66,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="363"/>
+        <Button x:Name="btnGivemeCard" Content="Dar cartón" HorizontalAlignment="Left" Margin="444,57,0,0" VerticalAlignment="Top" Width="75" Click="btnGivemeCard_Click"/>
+        <TextBox x:Name="txtStatus" HorizontalAlignment="Left" Height="23" Margin="66,279,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>

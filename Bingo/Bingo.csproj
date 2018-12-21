@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bingo.Service\Bingo.Service.csproj">
+      <Project>{9c058bf8-37ca-4438-94b9-d4b6e4972053}</Project>
+      <Name>Bingo.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

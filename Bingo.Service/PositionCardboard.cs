@@ -19,6 +19,5 @@ namespace Bingo.Service
         {
             return base.ToString();
         }
-
     }
 }

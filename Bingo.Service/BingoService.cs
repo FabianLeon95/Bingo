@@ -57,21 +57,22 @@ namespace Bingo.Service
             return position;
         }
 
-        public bool ValidateGame(PositionCardboard[,] cardboard, int[,] mode)
+        public static bool ValidateGame(PositionCardboard[,] cardboard, int[,] mode)
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (!(cardboard[i, j].Marked) && (mode[i,j]==1))
+                    if ((mode[i, j] == 1) && (!cardboard[i, j].Marked))
                     {
                         return false;
                     }
                 }
             }
             return true;
-        } 
-        public bool ValidateCardboard(Position corn, PositionCardboard[,] cardboard)
+        }
+
+        public static void ValidateCardboard(Position corn, PositionCardboard[,] cardboard)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -80,11 +81,9 @@ namespace Bingo.Service
                     if (corn.Equals(cardboard[i,j]))
                     {
                         cardboard[i, j].Marked = true;
-                        return true;
                     }
                 }
             }
-            return true;
         }
     }
 }

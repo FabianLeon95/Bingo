@@ -11,54 +11,63 @@ namespace Bingo.ConsoleTest
     {
         static void Main(string[] args)
         {
-            BingoService bs = new BingoService(75);
-            PositionCardboard[,] cardboard = bs.DealCardboard();
-            PrintCardboard(cardboard);
-            Console.WriteLine("--------------------------------------");
-            bool win = bs.ValidateGame(cardboard, Modes.Corner);
-            int count = 0;
-            while (!win && count < 75)
+            AppLogic appLogic = new AppLogic();
+
+            Console.WriteLine("Nombre del Jugador: ");
+            string name = Console.ReadLine();
+            Player player = new Player(name);
+
+            Console.WriteLine("\nInserte la cantidad de fichas: ");
+            int size = int.Parse(Console.ReadLine());
+            BingoService bs = new BingoService(size);
+
+            Console.WriteLine("\nSeleccione el modo de juego: ");
+            Console.WriteLine(" 1  - Carton lleno");
+            Console.WriteLine(" 2  - 4 esquinas");
+            Console.WriteLine(" 3  - H");
+            Console.WriteLine(" 4  - X");
+            Console.WriteLine(" 5  - 0");
+            Console.WriteLine(" 6  - U");
+            Console.WriteLine(" 7  - P");
+            Console.WriteLine(" 8  - A");
+            Console.WriteLine(" 9  - E");
+            Console.WriteLine(" 10 - W");
+            Console.WriteLine(" 11 - R");
+            int modeId = int.Parse(Console.ReadLine());
+            int[,] mode = appLogic.SelectMode(modeId);
+
+            Console.WriteLine("\nNumero de cartones: ");
+            int numberOfCardboards = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numberOfCardboards; i++)
             {
-                System.Threading.Thread.Sleep(800);
+                player.AddCarboard(bs.DealCardboard());
+                System.Threading.Thread.Sleep(20);
+            }
+
+            appLogic.PrintPlayerCardboards(player.Cardboards);
+
+            bool win = appLogic.ValidatePlayerGame(player.Cardboards, mode);
+            int count = 0;
+
+            while (!win && count < size)
+            {
+                System.Threading.Thread.Sleep(20);
                 Position p = bs.CallPosition();
                 Console.BackgroundColor = ConsoleColor.Blue;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(p);
+                Console.WriteLine($"\n{p}");
                 Console.ResetColor();
                 Console.WriteLine("--------------------------------------");
-                bs.ValidateCardboard(p, cardboard);
-                PrintCardboard(cardboard);
-                win = bs.ValidateGame(cardboard, Modes.Corner);
+                appLogic.ValidatePlayerCardboard(p, player.Cardboards);
+                appLogic.PrintPlayerCardboards(player.Cardboards);
+                win = appLogic.ValidatePlayerGame(player.Cardboards, Modes.Corner);
                 count++;
             }
             Console.WriteLine("--------------------------------------");
 
-            if (win) Console.WriteLine("You Win!!!");
-            else Console.WriteLine("Loser");
-        }
-
-        static void PrintCardboard(PositionCardboard[,] cardboard)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (cardboard[j, i].Marked)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(cardboard[j, i]);
-                        Console.ResetColor();
-
-                    }
-                    else
-                    {
-                        Console.Write(cardboard[j, i]);
-                    }
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("----------------------------------");
+            if (win) Console.WriteLine($"{player.PlayerName} has ganado!!");
+            else Console.WriteLine($"{player.PlayerName} has perdido :(");
         }
     }
 }

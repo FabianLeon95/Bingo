@@ -40,6 +40,15 @@ namespace Bingo.ConsoleTest
             }
         }
 
+        public void PrintPosition(Position p)
+        {
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"\n{p}");
+            Console.ResetColor();
+            Console.WriteLine("--------------------------------------");
+        }
+
         public void ValidatePlayerCardboard(Position corn, List<PositionCardboard[,]> cardboards)
         {
             for (int i = 0; i < cardboards.Count; i++)

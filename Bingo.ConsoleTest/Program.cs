@@ -54,16 +54,13 @@ namespace Bingo.ConsoleTest
             {
                 System.Threading.Thread.Sleep(20);
                 Position p = bs.CallPosition();
-                Console.BackgroundColor = ConsoleColor.Blue;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"\n{p}");
-                Console.ResetColor();
-                Console.WriteLine("--------------------------------------");
+                appLogic.PrintPosition(p);
                 appLogic.ValidatePlayerCardboard(p, player.Cardboards);
                 appLogic.PrintPlayerCardboards(player.Cardboards);
-                win = appLogic.ValidatePlayerGame(player.Cardboards, Modes.Corner);
+                win = appLogic.ValidatePlayerGame(player.Cardboards, mode);
                 count++;
             }
+
             Console.WriteLine("--------------------------------------");
 
             if (win) Console.WriteLine($"{player.PlayerName} has ganado!!");
